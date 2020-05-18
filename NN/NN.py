@@ -1,5 +1,5 @@
 import numpy as np
-import scipy as scp  
+import scipy.special as scp  
 class NN:
     def _init_(self,innodes,hnodes,outnodes,lr):
         self.inodes=innodes
@@ -8,11 +8,11 @@ class NN:
         self.lr=lr
         self.ih=np.random.normal(0.0,pow(self.hnodes,-0.5),(self.hnodes,self.inodes))
         self.ho=np.random.normal(0.0,pow(self.onodes,-0.5),(self.onodes,self.hnodes))
-        self.act_func=lambda x:scipy.special.expit(x)
+        self.act_func=lambda x:scp.expit(x)
         pass
     def query(self,in_list):
         inputs=np.array(in_list,ndmin=2).T
-        hid_ih=np.dot(self.ih,inputs)
+        hid_in=np.dot(self.ih,inputs)
         hid_out=self.act_func(hid_in)
         final_in=np.dot(self.ho,hid_out)
         final_out=self.act_func(final_in)
@@ -20,7 +20,7 @@ class NN:
     def train(self,in_list,tar_list):
         inputs=np.array(in_list,ndmin=2).T
         targets=np.array(tar_list,ndmin=2).T
-        hid_ih=np.dot(self.ih,inputs)
+        hid_in=np.dot(self.ih,inputs)
         hid_out=self.act_func(hid_in)
         final_in=np.dot(self.ho,hid_out)
         final_out=self.act_func(final_in)
