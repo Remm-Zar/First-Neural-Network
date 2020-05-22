@@ -3,11 +3,25 @@ import NN
 import numpy as np
 def Training():
     #training data
-    data_file=open("C:/Users/Hp/Desktop/my python programs/3_test.txt",'r')
+    data_file=open("C:/Users/Hp/Desktop/my python programs/mnist_train.csv",'r')
     data_list=data_file.readlines()
     data_file.close()
     #modification fo training data
+    i=0
     for line in data_list:
+        i+=1
+        if (i==1000):
+           print("1000 times done")
+        elif (i==10000):
+           print("10000 times done")
+        elif (i==20000):
+            print("20000 times done")
+        elif (i==30000):
+            print("30000 times done")
+        elif (i==40000):
+            print("40000 times done")
+        elif (i==50000):
+            print("50000 times done")        
         all_val_train=line.split(',')
         inputs=np.asfarray(all_val_train[1:])
         inputs=inputs/255.0*0.99+0.01
@@ -19,7 +33,7 @@ def Training():
     pass
 def Query():
     scorecard=[]
-    data_file=open("C:/Users/Hp/Desktop/my python programs/3_test.txt",'r')
+    data_file=open("C:/Users/Hp/Desktop/my python programs/mnist_test.csv",'r')
     data_list=data_file.readlines()
     data_file.close()
     #modification fo training data
