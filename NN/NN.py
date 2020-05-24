@@ -13,6 +13,14 @@ class NN:
         #np.random.normal(0.0,pow(self.onodes,-0.5),(self.onodes,self.hnodes))
         self.act_func=lambda x:scp.expit(x)
         pass
+    def Set_learn_rate(self,new_lr):
+        self.lr=new_lr
+        pass
+    def Set_hnodes(self,new_hnodes):
+        self.hnodes=new_hnodes
+        self.ih=np.random.normal(0.0,pow(self.hnodes,-0.5),(self.hnodes,self.inodes))
+        self.ho=np.random.normal(0.0,pow(self.onodes,-0.5),(self.onodes,self.hnodes))
+        pass
     def query(self,in_list):
         inputs=np.array(in_list,ndmin=2).T
         hid_in=np.dot(self.ih,inputs)
