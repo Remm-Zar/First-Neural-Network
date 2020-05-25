@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import NN
 import numpy as np
+from mpl_toolkits.mplot3d import Axes3D
 def Training():
     #training data
     data_file=open("C:/Users/Hp/Desktop/my python programs/spec_train.txt",'r')
@@ -74,8 +75,8 @@ def Statistic():
     data_file=open("C:/Users/Hp/Desktop/my python programs/mnist_train.csv",'r')
     data_list=data_file.readlines()
     data_file.close()
-    learn_rate=0.2
-    for l_r in range(8):
+    learn_rate=0.1
+    for l_r in range(5):
         learn_rate+=0.1
         n.Set_learn_rate(learn_rate)
         score_lr.append(learn_rate) 
@@ -92,11 +93,13 @@ def Statistic():
                 elif (i==20000):
                     print("20000 times done")
                 elif (i==30000):
-                    print("30000 times done")
+                    print("30000 times done\a")
                 elif (i==40000):
                     print("40000 times done")
                 elif (i==50000):
                     print("50000 times done")
+                elif (i==60000):
+                    print("\a")
                 #modification fo training data      
                 all_val_train=line.split(',')
                 inputs=np.asfarray(all_val_train[1:])
@@ -113,10 +116,28 @@ def Statistic():
     ARR_H=np.array(score_hnodes)
     ARR_EF=np.array(score_eff)
     np.savez("SData",ARR_LR=ARR_LR,ARR_H=ARR_H,ARR_EF=ARR_EF)
-    #print(ARR_LR)
-    #print(ARR_H)
-    #print(ARR_EF)
-    pass
+
+def Statistic_view():
+    s=150
+    data=np.load("C:/Users/Hp/Desktop/my python programs/NN/NN/SData.npz")
+    size1=data['ARR_H'].size
+    size2=data['ARR_LR'].size
+    LR_LIST=[]
+    for i in range(size2):
+        for j in range(size2):
+            LR_LIST.append(data['ARR_LR'][i])
+            pass
+        pass
+    X=np.array(LR_LIST).reshape(1,size1)
+    print("LR:",data['ARR_LR'])
+    Y=data['ARR_H']
+    Z=data['ARR_EF']
+    print("HN:\n",data['ARR_H'])
+    print("EFF:\n",data['ARR_EF'])
+    hf=plt.figure()
+    ha=hf.add_subplot(111,projection='3d')
+    ha.scatter(X,Y,Z,s=s,label="Statistic")
+    plt.show()
 
 #main unformation
 in_nodes=784
@@ -135,12 +156,11 @@ while (order!=""):
     elif (order=="query"):
        Query("None")
        print("Done.")
-    elif (order=="stat"):
+    elif (order=="statistic"):
         Statistic()
-        data=np.load("C:/Users/Hp/Desktop/my python programs/NN/NN/SData.npz")
-        print("LR:",data['ARR_LR'])
-        print("HN:",data['ARR_H'])
-        print("EFF:",data['ARR_EF'])
+        Statistic_view()
+    elif (order=="SView"):
+        Statistic_view()
     else:
         print("wrong input.Repeat")
     print("\ninput>>")
