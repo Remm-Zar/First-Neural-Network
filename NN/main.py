@@ -4,7 +4,7 @@ import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 def Training():
     #training data
-    data_file=open("C:/Users/Hp/Desktop/my python programs/spec_train.txt",'r')
+    data_file=open("C:/Users/Hp/Desktop/my python programs/mnist_train.csv",'r')
     data_list=data_file.readlines()
     data_file.close()
     #modification fo training data
@@ -62,7 +62,7 @@ def Query(Flag):
     if (Flag=="S"):
         return rate
     else:
-        print(scorecard,"correctness: %.3f" % (rate),"%")
+        print("correctness: %.3f" % (rate),"%")
 
 #def Rec_file(A,B,C):
    # np.savez("SData",A=A,B=B,C=C)
@@ -138,12 +138,18 @@ def Statistic_view():
     ha=hf.add_subplot(111,projection='3d')
     ha.scatter(X,Y,Z,s=s,label="Statistic")
     plt.show()
-
+def EpochTrain(epoch):
+    for i in range(int(epoch)):
+        print("Epoch ",i+1,":")
+        Training()
+        print("Epoch result: ")
+        Query("None")
+        pass
 #main unformation
 in_nodes=784
-h_nodes=100
+h_nodes=200
 out_nodes=10
-learn_rate=0.3
+learn_rate=0.2
 #NN object
 n=NN.NN()
 n._init_(in_nodes,h_nodes,out_nodes,learn_rate)
@@ -161,6 +167,10 @@ while (order!=""):
         Statistic_view()
     elif (order=="SView"):
         Statistic_view()
+    elif (order=="EpochTrain"):
+        print("\nEnter epoch:")
+        epoch=input()
+        EpochTrain(epoch)
     else:
         print("wrong input.Repeat")
     print("\ninput>>")

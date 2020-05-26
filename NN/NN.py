@@ -6,10 +6,12 @@ class NN:
         self.hnodes=hnodes
         self.onodes=outnodes
         self.lr=lr
-        data=np.load("Data.npz")
-        self.ih=data['arr_0']
+        #data=np.load("Data.npz")
+        self.ih=np.random.normal(0.0,pow(self.hnodes,-0.5),(self.hnodes,self.inodes))
+        #data['arr_0']
         #np.random.normal(0.0,pow(self.hnodes,-0.5),(self.hnodes,self.inodes))
-        self.ho=data['arr_1']
+        self.ho=np.random.normal(0.0,pow(self.onodes,-0.5),(self.onodes,self.hnodes))
+        #data['arr_1']
         #np.random.normal(0.0,pow(self.onodes,-0.5),(self.onodes,self.hnodes))
         self.act_func=lambda x:scp.expit(x)
         pass
